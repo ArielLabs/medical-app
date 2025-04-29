@@ -1,0 +1,46 @@
+<form
+  [formGroup]="loginForm"
+  (ngSubmit)="onLoginSubmit()"
+  class="loginPagecontainer"
+>
+  <div class="headerForm">
+    <span class="titleApp">Medical App</span>
+    <span class="titleLoginForm">Sign in</span>
+  </div>
+  <div class="loginForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Username</mat-label>
+      <input
+        type="text"
+        matInput
+        placeholder="Username"
+        formControlName="Username"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input
+        [type]="hidePassword ? 'password' : 'text'"
+        matInput
+        placeholder="Password"
+        formControlName="Password"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="togglePasswordVisibility()"
+        type="button"
+        tabindex="-1"
+      >
+        <mat-icon>{{
+          hidePassword ? "visibility_off" : "visibility"
+        }}</mat-icon>
+      </button>
+    </mat-form-field>
+    <button *ngIf="!isLoading" type="submit" mat-stroked-button [disabled]="isLocked">Sign in</button>
+    <button *ngIf="isLoading" type="button" mat-stroked-button>Loading...</button>
+    <div *ngIf="isLocked" class="failure">
+      <span class="failureContent">Too many failed attempts. Try again after <b>{{ lockingTimer }}</b> seconds</span>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,61 @@
+.runningHistoryContainer{
+    width: 100%;
+    height: 100%;
+    border: 2px dashed #ccc;
+    border-radius: 0.5rem;
+    background-color: white;
+    padding: 1rem;
+    box-sizing: border-box;
+    text-align: center;
+    transition: background-color 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ 
+.runningHistoryContainer.dragover {
+    background-color: #f0f8ff;
+    border-color: #3f51b5;
+}
+
+.dropzone{
+    display: flex;
+    flex-direction: column;
+}
+
+.uploadFileContainer{
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    background-color: white;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.displayFile{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+}
+
+.btnAction{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.section{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,0 +1,56 @@
+<div class="patientsListContainer" *ngIf="!isError && !isLoading">
+  <div class="headerpatientsList">
+    <span class="titleList">Patients List</span>
+    <div>
+      <button mat-button (click)="accordion().openAll()">Expand All</button>
+      <button mat-button (click)="accordion().closeAll()">Collapse All</button>
+    </div>
+  </div>
+  <mat-accordion multi>
+    <mat-expansion-panel *ngFor="let patient of patients" class="custom-panel">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ patient.ID }}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{ patient.FirstName }} {{ patient.LastName }} -
+          {{ patient.Age }} years old
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <ul class="physicalMetricsContainer">
+        <div>
+          <li>Height: {{ heightFormat(patient.Height) }} m</li>
+          <li>Weight: {{ patient.Weight }} kg</li>
+          <li>
+            <ng-container
+              *ngIf="calculateBMI(patient.Height, patient.Weight) as bmiResult"
+            >
+              BMI: {{ bmiResult.bmi }} kg/m<sup>2</sup> (<span
+                [ngStyle]="{ color: getStatusColorBMI(bmiResult.status) }"
+              >
+                {{ bmiResult.status }} </span
+              >)
+            </ng-container>
+          </li>
+          <li>
+            Average heart rate: {{ getAvgHeartRate(patient.HeartRate) }} bpm
+          </li>
+        </div>
+        <li>
+          Activity status:
+          <ul>
+            <li *ngFor="let activity of getActivityStatus(patient.HeartRate)">
+              {{ activity.mode }}: In minute {{ activity.time }}
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
+<div class="containerLoadingAndError" *ngIf="isError || isLoading">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <h2 *ngIf="isError">An error occurred.</h2>
+</div>

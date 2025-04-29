@@ -1,0 +1,54 @@
+<div class="healthReportContainer">
+  <span class="titleReport">Health Report</span>
+  <form [formGroup]="reportForm" class="healthReportForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Symptoms</mat-label>
+      <mat-select
+        (selectionChange)="onSymptomReportChange($event.value, 'symptom')"
+      >
+        <mat-option *ngFor="let symptom of symptoms.values" [value]="symptom">{{
+          symptom.name
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <ng-container *ngIf="secondDropdownOptions.length > 0">
+      <mat-form-field appearance="outline">
+        <mat-label>Details</mat-label>
+        <mat-select
+          (selectionChange)="onSymptomReportChange($event.value, 'detail')"
+        >
+          <mat-option
+            *ngFor="let detail of secondDropdownOptions"
+            [value]="detail"
+            >{{ detail.name }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
+
+    <ng-container *ngIf="thirdDropdownOption.length > 0">
+      <mat-form-field appearance="outline">
+        <mat-label>Level</mat-label>
+        <mat-select
+          (selectionChange)="onSymptomReportChange($event.value, 'level')"
+        >
+          <mat-option
+            *ngFor="let level of thirdDropdownOption"
+            [value]="level"
+            >{{ level.name }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
+  </form>
+  <button
+    style="width: 100%"
+    type="submit"
+    mat-stroked-button
+    (click)="onReportSubmit()"
+    [disabled]="!validReportForm()"
+  >
+    Submit
+  </button>
+</div>

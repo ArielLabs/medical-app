@@ -1,0 +1,51 @@
+<div
+  *ngIf="!file"
+  class="runningHistoryContainer"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)"
+  (drop)="onDrop($event)"
+  [class.dragover]="isDragOver"
+>
+  <div class="dropzone">
+    <p>Drag & Drop your CSV file here</p>
+    <input type="file" (change)="onFileSelected($event)" hidden #fileInput />
+    <span style="font-size: 0.8rem">or</span>
+    <div>
+      <button mat-button (click)="fileInput.click()">select file</button>
+    </div>
+  </div>
+</div>
+
+<div class="uploadFileContainer" *ngIf="file">
+
+  <div *ngIf="!isUploading && !jsonFilename" class="section">
+    <div class="displayFile">
+      <span style="font-weight: 500; font-size: 1.1rem">Selected File:</span>
+      <span>{{ file.name }}</span>
+    </div>
+    <div class="btnAction" *ngIf="!isUploading">
+      <button mat-flat-button (click)="onUpload()">Convert</button>
+      <button mat-stroked-button (click)="onCancel()">Cancel</button>
+    </div>
+  </div>
+
+  <div *ngIf="isUploading" class="section">
+    <span>Uploading...</span>
+    <mat-progress-bar
+      mode="determinate"
+      [value]="uploadProgress"
+      [style.transition]="isUploading ? 'all 0.5s ease' : ''"
+    >
+    </mat-progress-bar>
+  </div>
+
+  <div *ngIf="jsonFilename" class="section">
+    <div class="displayFile">
+      <span>Your file is ready to download.</span>
+    </div>
+    <div class="btnAction">
+      <button mat-flat-button (click)="onDownload()">Download</button>
+      <button mat-stroked-button (click)="onCancel()">Cancel</button>
+    </div>
+  </div>
+</div>
